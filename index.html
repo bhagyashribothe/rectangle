@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Area Calculator</title>
+  <link rel="stylesheet" href="../rectangle/style.css">
+</head>
+<body>
+<div class="container">
+    <h1>Area Calculator</h1>--
+    <label for="shape">Choose a shape:</label>
+    <select id="shape" onchange="toggleInputs()">
+      <option value="rectangle">Rectangle</option>
+      <option value="circle">Circle</option>
+    </select>
+    <div id="rectangleInputs">
+      <label for="length">Length:</label>
+      <input type="number" id="length" placeholder="Enter length" />
+
+      <label for="width">Width:</label>
+      <input type="number" id="width" placeholder="Enter width" />
+    </div>
+    <div id="circleInputs" style="display: none;">
+      <label for="radius">Radius:</label>
+      <input type="number" id="radius" placeholder="Enter radius" />
+    </div>
+    <button onclick="calculateArea()">Calculate</button>
+    <div class="result" id="result"></div>
+  </div>
+
+  <script>
+    function toggleInputs() 
+    {
+      const shape = document.getElementById('shape').value;
+      if (shape === 'rectangle') {
+        document.getElementById('rectangleInputs').style.display = 'block';
+        document.getElementById('circleInputs').style.display = 'none';
+      } else if (shape === 'circle') {
+        document.getElementById('rectangleInputs').style.display = 'none';
+        document.getElementById('circleInputs').style.display = 'block';
+      }
+    }
+
+    // Function to calculate the area
+    function calculateArea() 
+    {
+      const shape = document.getElementById('shape').value;
+      let area = 0;
+
+      if (shape === 'rectangle') 
+      {
+        const length = parseFloat(document.getElementById('length').value);
+        const width = parseFloat(document.getElementById('width').value);
+
+        if (isNaN(length) || isNaN(width) || length <= 0 || width <= 0) {
+          alert('Please enter valid positive numbers for length and width');
+          return;
+        }
+
+        area = length * width;
+      } else if (shape === 'circle') 
+      {
+        const radius = parseFloat(document.getElementById('radius').value);
+
+        if (isNaN(radius) || radius <= 0) 
+        {
+          alert('Please enter a valid positive number for radius');
+          return;
+        }
+
+        area = Math.PI * Math.pow(radius, 2);
+      }
+      document.getElementById('result').innerText = `The area is: ${area.toFixed(2)}`;
+    }
+  </script>
+
+</body>
+</html>
